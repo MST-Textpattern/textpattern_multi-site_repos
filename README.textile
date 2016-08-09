@@ -1,0 +1,47 @@
+h1. Textpattern CMS multi-site blank repos
+
+Blank multi-site repositories for use with Textpattern multi-site installations using "this forked branch":https://github.com/jools-r/textpattern/tree/multi-site of txp 4.6 (currently beta 3), which features a proper multi-site installer and resolves many of the erroneous error messages during installation and in the diagnostics pane, and also resolves the public/admin-side cookie problems of the existing multi-site installation.
+
+These are designed for cloning/downloading as blank starter multi-site folder setups. Make sure all symlinks and hidden files (.htaccess) are copied correctly. Rename @site1@ to your own site folder name, create two subdomains as follows:
+
+* @www.yourdomain.com@ (or dev.yourdomain.com etc.) and point it to the site's @/public@ folder
+* @admin.yourdomain.com@ (or login.yourdomain.com etc.) and point it to the site's @/admin@ folder.
+
+Then visit @admin.yourdomain.com/setup@ to start the setup process.
+
+There are two variants:
+
+h2(#inside-txp-folder). @sites@ folder inside the textpattern repo
+
+Here the @sites@ folder is within the textpattern installation, as per the existing setup:
+
+bc.. 
+/textpattern-installation
+  /sites
+    /site1
+      /admin
+      /private
+      /public
+  /textpattern
+
+h2(#parallel-to-txp-folder). @sites@ folder parallel to the textpattern repo
+
+This setup places the @sites@ folder parallel to the textpattern installation and therefore allows the two to be independent. The folder setup is as follows:
+
+bc.. 
+/textpattern-installation
+  /textpattern
+/sites
+  /site1
+    /admin
+    /private
+    /public
+    ->textpattern (symlink)
+
+p. This has several advantages:
+
+* Each site can have its own separate repo with own templates, config files, etc.
+* The textpattern installation can be a separate repo that can be updated independently of the sites (e.g. to keep a dev version up-to-date)
+* Several textpattern versions can exist in parallel if required. Adjust the textpattern symlink in the respective site to point to the required txp version.
+
+_This is a work in progress and builds on ideas and suggestions by "maverick":http://forum.textpattern.com/viewtopic.php?id=35521 and "maniqui":http://forum.textpattern.com/viewtopic.php?id=38787._
